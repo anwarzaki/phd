@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api";
 import Navbar from "../components/Navbar"; // Ensure Navbar is imported
+import { Link } from "react-router-dom";
 
 function RegisterUser() {
   const [formData, setFormData] = useState({
@@ -96,6 +97,12 @@ function RegisterUser() {
             >
               Register
             </button>
+            <p className="text-sm ml-6 mt-3">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-700">
+                Login here
+              </Link>
+            </p>
           </form>
           {message && (
             <p

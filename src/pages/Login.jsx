@@ -198,11 +198,12 @@ import { login } from "../services/api";
 import { jwtDecode } from "jwt-decode";
 import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "admin@example.com",
+    password: "password123",
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -306,6 +307,12 @@ function Login() {
             >
               Login
             </button>
+            <p className="text-sm ml-6 mt-3">
+              Don't have an account ?{" "}
+              <Link to="/register" className="text-blue-700">
+                Register here
+              </Link>
+            </p>
           </form>
           {message && (
             <p

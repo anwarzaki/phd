@@ -1,27 +1,3 @@
-// import axios from 'axios';
-
-// const API = axios.create({
-//   baseURL: 'http://localhost:8080', // Your Spring Boot backend URL
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// });
-
-// // API functions for the three endpoints
-// export const registerUser = (userData) => API.post('/api/auth/register', userData);
-// export const verifyOtp = (otpData) => API.post('/api/auth/verify-otp', otpData);
-// export const resendOtp = (emailData) => API.post('/api/auth/resend-otp', emailData);
-// export const login = (loginData) => API.post('/api/auth/login', loginData);
-// export const getUserProfile = () => API.get('/api/user/profile');
-
-// // Admin APIs
-// export const getAllUsers = (page = 0, size = 10) =>
-//   API.get(`/api/admin/users?page=${page}&size=${size}`);
-// export const approveUser = (userId) => API.put(`/api/admin/approve-user/${userId}`);
-// export const rejectUser = (userId) => API.put(`/api/admin/reject-user/${userId}`);
-
-// export default API;
-
 import axios from 'axios';
 
 const API = axios.create({
@@ -80,5 +56,21 @@ export const downloadReport = (scholarId) =>
   API.get(`/api/coordinator/report/${scholarId}`, {
     responseType: 'blob', // For handling PDF download
   }); 
+  export const downloadReportRAC = (scholarId) =>
+  API.get(`/api/rac-member/report/${scholarId}`, {
+    responseType: 'blob', // For handling PDF view 
+  }); 
+
+  export const getAllRACMembers = () => API.get('/api/coordinator/all?page=1&size=10');
+  export const updatedRACMember = (id, updatedRACMember) =>
+    API.put(`/api/coordinator/update/${id}`, updatedRACMember);
+
+  // RAC Member APIs 
+  export const getReportsForApproval = () => API.get('/api/rac-member/all/reports');
+  export const approveReport = (reportId) => API.put(`/api/rac-member/approve-report/${reportId}`);
+  export const getReportSignatures = (reportId) => API.get(`/api/signatures/report/${reportId}`); // New API for signatures
+
+  // Scholar
+  export const getScholarDetails = (scholarId) => API.get(`/api/scholar/${scholarId}`);
 
 export default API;
