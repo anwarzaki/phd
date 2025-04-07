@@ -69,6 +69,16 @@ export const downloadReport = (scholarId) =>
   export const getReportsForApproval = () => API.get('/api/rac-member/all/reports');
   export const approveReport = (reportId) => API.put(`/api/rac-member/approve-report/${reportId}`);
   export const getReportSignatures = (reportId) => API.get(`/api/signatures/report/${reportId}`); // New API for signatures
+  // Add to your api.js
+export const uploadSignature = (reportId, formData) => {
+  return API.post(`/api/signatures/upload/${reportId}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  });
+};
+export const viewSignature = () => API.get('/api/rac-member/signature');
 
   // Scholar
   export const getScholarDetails = (scholarId) => API.get(`/api/scholar/${scholarId}`);

@@ -282,7 +282,7 @@ function CoordinatorDashboard() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="container mx-auto p-4 md:p-6">
+      <div className="container mx-auto p-4 md:p-6 mt-10">
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-t-lg shadow-md">
           <h1 className="text-2xl md:text-3xl font-bold">
             Coordinator Dashboard
