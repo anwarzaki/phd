@@ -1,70 +1,38 @@
-// import Navbar from "../components/Navbar";
-
-// function Home() {
-//   return (
-//     <div className="min-h-screen bg-gray-100">
-//       <Navbar />
-//       <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)]">
-//         <h1 className="text-4xl font-bold text-gray-800 mb-6">
-//           Welcome to PhD Report System
-//         </h1>
-//         <p className="text-lg text-gray-600 mb-8">
-//           Manage your PhD reports efficiently and securely.
-//         </p>
-//         <div className="space-x-4">
-//           <a
-//             href="/login"
-//             className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
-//           >
-//             Login
-//           </a>
-//           <a
-//             href="/register"
-//             className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition"
-//           >
-//             Register
-//           </a>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Home;
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { FiArrowRight, FiUsers, FiFileText, FiBarChart2 } from "react-icons/fi";
+import Footer from "../components/Footer";
 
 function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentFeature, setCurrentFeature] = useState(0);
 
-  const features = [
-    {
-      icon: <FiFileText className="text-blue-600 text-3xl" />,
-      title: "Report Generation",
-      description: "Automated report templates with real-time collaboration",
-    },
-    {
-      icon: <FiBarChart2 className="text-green-600 text-3xl" />,
-      title: "Progress Tracking",
-      description: "Visual dashboards to monitor your research milestones",
-    },
-    {
-      icon: <FiUsers className="text-purple-600 text-3xl" />,
-      title: "Supervisor Access",
-      description: "Seamless communication with your research committee",
-    },
-  ];
+  // const features = [
+  //   {
+  //     icon: <FiFileText className="text-blue-600 text-3xl" />,
+  //     title: "Report Generation",
+  //     description: "Automated report templates with real-time collaboration",
+  //   },
+  //   {
+  //     icon: <FiBarChart2 className="text-green-600 text-3xl" />,
+  //     title: "Progress Tracking",
+  //     description: "Visual dashboards to monitor your research milestones",
+  //   },
+  //   {
+  //     icon: <FiUsers className="text-purple-600 text-3xl" />,
+  //     title: "Supervisor Access",
+  //     description: "Seamless communication with your research committee",
+  //   },
+  // ];
 
   useEffect(() => {
     setIsLoaded(true);
-    const interval = setInterval(() => {
-      setCurrentFeature((prev) => (prev + 1) % features.length);
-    }, 4000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   setCurrentFeature((prev) => (prev + 1) % features.length);
+    // }, 4000);
+    // return () => clearInterval(interval);
   }, []);
 
   const containerVariants = {
@@ -112,7 +80,7 @@ function Home() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-50 overflow-hidden">
       <Navbar />
 
-      <div className="container mx-auto px-4 py-8 md:py-12 flex flex-col lg:flex-row items-center justify-center min-h-[calc(100vh-64px)] gap-8">
+      <div className="container mx-auto px-4 py-8 md:py-12 flex flex-col lg:flex-row items-center justify-center min-h-[calc(100vh-64px)] gap-8 mt-10">
         {/* Left Content */}
         <motion.div
           className="w-full lg:w-1/2 space-y-8"
@@ -145,7 +113,7 @@ function Home() {
           </motion.p>
 
           {/* Features Carousel */}
-          <motion.div
+          {/* <motion.div
             className="bg-white p-6 rounded-xl shadow-md border border-gray-100"
             variants={itemVariants}
           >
@@ -181,7 +149,7 @@ function Home() {
                 />
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Action Buttons */}
           <motion.div
@@ -275,6 +243,9 @@ function Home() {
           <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-500 rounded-full opacity-10" />
           <div className="absolute -top-6 -left-6 w-32 h-32 bg-teal-500 rounded-full opacity-10" />
         </motion.div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

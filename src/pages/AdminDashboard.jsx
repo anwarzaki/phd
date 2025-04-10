@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { getAllUsers, approveUser, rejectUser } from "../services/api";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -136,7 +137,7 @@ function AdminDashboard() {
     return (
       <div className="min-h-screen bg-gray-50">
         <Navbar />
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-screen ">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
         </div>
       </div>
@@ -147,7 +148,7 @@ function AdminDashboard() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="container mx-auto p-4 md:p-6">
+      <div className="container mx-auto p-4 md:p-6 mt-10">
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-t-lg shadow-md">
           <h1 className="text-2xl md:text-3xl font-bold">Admin Dashboard</h1>
           <p className="mt-2 text-blue-100">
@@ -342,6 +343,9 @@ function AdminDashboard() {
             </>
           )}
         </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

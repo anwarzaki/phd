@@ -11,6 +11,7 @@ import {
 import Navbar from "../components/Navbar";
 import EditScholarModal from "../components/EditScholarModal";
 import EditRACModal from "../components/EditRACModal";
+import Footer from "../components/Footer";
 
 function CoordinatorDashboard() {
   // Scholars state
@@ -423,6 +424,9 @@ function CoordinatorDashboard() {
           handleSave={handleSaveRacMember}
         />
       )}
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
