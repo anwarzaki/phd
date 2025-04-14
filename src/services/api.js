@@ -82,5 +82,7 @@ export const viewSignature = () => API.get('/api/rac-member/signature');
 
   // Scholar
   export const getScholarDetails = (scholarId) => API.get(`/api/scholar/${scholarId}`);
+  export const getApprovedReport = () => API.get('/api/phd-scholar/approved');
+
 
 export default API;
