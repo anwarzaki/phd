@@ -7,11 +7,13 @@ import {
   downloadReport,
   getAllRACMembers,
   updatedRACMember,
+  uploadNotice,
 } from "../services/api";
 import Navbar from "../components/Navbar";
 import EditScholarModal from "../components/EditScholarModal";
 import EditRACModal from "../components/EditRACModal";
 import Footer from "../components/Footer";
+import UploadNoticeModal from "../components/UploadNoticeModal";
 
 function CoordinatorDashboard() {
   // Scholars state
@@ -41,6 +43,9 @@ function CoordinatorDashboard() {
 
   // Tab state
   const [activeTab, setActiveTab] = useState("scholars");
+
+  // Notice upload state
+  const [showUploadNotice, setShowUploadNotice] = useState(false);
 
   // Fetch scholars when the component mounts or page changes
   useEffect(() => {
@@ -169,6 +174,16 @@ function CoordinatorDashboard() {
     link.remove();
   };
 
+  const handleNoticeUpload = async (formData) => {
+    try {
+      await uploadNotice(formData);
+      return true;
+    } catch (error) {
+      handleApiError(error, "Failed to upload notice. Please try again.");
+      throw error;
+    }
+  };
+
   // Handle pagination for scholars
   const handleNextPage = () => {
     if (page < totalPages - 1) {
@@ -284,13 +299,21 @@ function CoordinatorDashboard() {
       <Navbar />
 
       <div className="container mx-auto p-4 md:p-6 mt-10">
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-t-lg shadow-md">
-          <h1 className="text-2xl md:text-3xl font-bold">
-            Coordinator Dashboard
-          </h1>
-          <p className="mt-2 text-blue-100">
-            Manage PhD scholars, RAC members, and reports
-          </p>
+        <div>
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-t-lg shadow-md">
+            <h1 className="text-2xl md:text-3xl font-bold">
+              Coordinator Dashboard
+            </h1>
+            <p className="mt-2 text-blue-100">
+              Manage PhD scholars, RAC members, and reports
+            </p>
+          </div>
+          <button
+            onClick={() => setShowUploadNotice(true)}
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 h-fit"
+          >
+            Upload Notice
+          </button>
         </div>
 
         {/* Tabs */}
@@ -422,6 +445,15 @@ function CoordinatorDashboard() {
           racMember={selectedRacMember}
           handleClose={() => setSelectedRacMember(null)}
           handleSave={handleSaveRacMember}
+        />
+      )}
+
+      {/* Upload Notice Modal */}
+      {showUploadNotice && (
+        <UploadNoticeModal
+          show={showUploadNotice}
+          handleClose={() => setShowUploadNotice(false)}
+          handleUpload={handleNoticeUpload}
         />
       )}
       <div>

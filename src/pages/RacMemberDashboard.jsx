@@ -6,6 +6,7 @@ import {
   approveReport,
   downloadReportRAC,
   uploadSignature,
+  rejectReport,
 } from "../services/api";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -24,6 +25,11 @@ const RacMemberDashboard = () => {
   const [signatureFile, setSignatureFile] = useState(null);
   const [position, setPosition] = useState({ x: 100, y: 200 });
   const navigate = useNavigate();
+
+  // ... existing state declarations ...
+  const [showActionMenu, setShowActionMenu] = useState(null);
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [rejectionRemarks, setRejectionRemarks] = useState("");
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -103,6 +109,25 @@ const RacMemberDashboard = () => {
       setSignatureFile(null);
     } catch (error) {
       handleApiError(error, "Failed to upload signature. Please try again.");
+    }
+  };
+
+  const handleRejectReport = async () => {
+    if (!rejectionRemarks.trim()) {
+      toast.error("Please provide rejection remarks");
+      return;
+    }
+
+    try {
+      await rejectReport(selectedReport.id, { rejectionRemarks });
+      toast.success(`Report ${selectedReport.id} rejected successfully!`);
+      const response = await getReportsForApproval();
+      setReports(response.data);
+      setShowRejectModal(false);
+      setShowActionMenu(null);
+      setRejectionRemarks("");
+    } catch (error) {
+      handleApiError(error, "Failed to reject report. Please try again.");
     }
   };
 
@@ -310,7 +335,7 @@ const RacMemberDashboard = () => {
                             >
                               View Report
                             </button>
-                            <button
+                            {/* <button
                               onClick={() => handleApproveReport(report.id)}
                               disabled={report.reportStatus === "APPROVED"}
                               className={`px-3 py-1 rounded text-sm ${
@@ -322,7 +347,58 @@ const RacMemberDashboard = () => {
                               {report.reportStatus === "APPROVED"
                                 ? "Approved"
                                 : "Approve"}
-                            </button>
+                            </button> */}
+                            {/* Updated Action Button */}
+                            <div className="relative">
+                              <button
+                                onClick={() =>
+                                  setShowActionMenu(
+                                    showActionMenu === report.id
+                                      ? null
+                                      : report.id
+                                  )
+                                }
+                                className={`px-3 py-1 rounded text-sm ${
+                                  report.reportStatus === "APPROVED"
+                                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                    : report.reportStatus === "REJECTED"
+                                    ? "bg-red-300 text-red-500 cursor-not-allowed"
+                                    : "bg-green-500 hover:bg-green-600 text-white"
+                                }`}
+                                disabled={report.reportStatus !== "PENDING"}
+                              >
+                                {report.reportStatus === "APPROVED"
+                                  ? "Approved"
+                                  : report.reportStatus === "REJECTED"
+                                  ? "Rejected"
+                                  : "Actions ▼"}
+                              </button>
+
+                              {showActionMenu === report.id && (
+                                <div className="absolute z-10 mt-1 w-40 bg-white shadow-lg rounded-md py-1">
+                                  <button
+                                    onClick={() => {
+                                      handleApproveReport(report.id);
+                                      setShowActionMenu(null);
+                                    }}
+                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600"
+                                  >
+                                    Approve
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setSelectedReport(report);
+                                      setShowRejectModal(true);
+                                      setShowActionMenu(null);
+                                    }}
+                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600"
+                                  >
+                                    Reject
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+
                             <button
                               onClick={() => handleOpenSignatureModal(report)}
                               className="px-3 py-1 bg-indigo-500 text-white rounded hover:bg-indigo-600 text-sm"
@@ -349,6 +425,54 @@ const RacMemberDashboard = () => {
           )}
         </div>
       </div>
+
+      {/* Reject Report Modal */}
+      {showRejectModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-xl font-semibold mb-4">
+              Reject Report #{selectedReport?.id}
+            </h2>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">
+                Rejection Remarks*
+              </label>
+              <textarea
+                value={rejectionRemarks}
+                onChange={(e) => setRejectionRemarks(e.target.value)}
+                className="w-full px-3 py-2 border rounded"
+                rows="4"
+                placeholder="Please specify the reason for rejection..."
+                required
+              />
+            </div>
+
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={() => {
+                  setShowRejectModal(false);
+                  setRejectionRemarks("");
+                }}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleRejectReport}
+                disabled={!rejectionRemarks.trim()}
+                className={`px-4 py-2 text-white rounded ${
+                  !rejectionRemarks.trim()
+                    ? "bg-red-300"
+                    : "bg-red-600 hover:bg-red-700"
+                }`}
+              >
+                Confirm Rejection
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Signature Upload Modal */}
       {showSignatureModal && (

@@ -1,62 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function EditScholarModal({ scholar, onClose, onSave }) {
   const [formData, setFormData] = useState({
-    id: '',
-    userId: '',
-    scholarName: '',
-    fatherName: '',
-    email: '',
-    batch: '',
-    rollNo: '',
-    passingYear: '',
-    headingDate: '',
-    dateOfJoining: '',
-    yearOfAdmission: '',
-    enrollmentNo: '',
-    profilePhotoUrl: '',
-    coSupervisor: '',
-    phdCoordinator: '',
-    nationality: '',
-    vivaDate: '',
+    id: "",
+    userId: "",
+    scholarName: "",
+    fatherName: "",
+    email: "",
+    batch: "",
+    rollNo: "",
+    passingYear: "",
+    headingDate: "",
+    dateOfJoining: "",
+    yearOfAdmission: "",
+    enrollmentNo: "",
+    profilePhotoUrl: "",
+    coSupervisor: "",
+    phdCoordinator: "",
+    nationality: "",
+    vivaDate: "",
     fellowship: false,
-    fullTimeOrPartTime: 'FULL_TIME',
-    supervisor: '',
-    hodNominee: '',
-    supervisorNominee: '',
-    researchTitle: '',
-    status: 'IN_PROGRESS',
-    titleStatus: 'APPROVED',
+    fullTimeOrPartTime: "FULL_TIME",
+    supervisor: "",
+    hodNominee: "",
+    supervisorNominee: "",
+    researchTitle: "",
+    status: "IN_PROGRESS",
+    titleStatus: "APPROVED",
   });
 
   useEffect(() => {
     if (scholar) {
       setFormData({
-        id: scholar.id || '',
-        userId: scholar.userId || '',
-        scholarName: scholar.scholarName || '',
-        fatherName: scholar.fatherName || '',
-        email: scholar.email || '',
-        batch: scholar.batch || '',
-        rollNo: scholar.rollNo || '',
-        passingYear: scholar.passingYear || '',
-        headingDate: scholar.headingDate || '',
-        dateOfJoining: scholar.dateOfJoining || '',
-        yearOfAdmission: scholar.yearOfAdmission || '',
-        enrollmentNo: scholar.enrollmentNo || '',
-        profilePhotoUrl: scholar.profilePhotoUrl || '',
-        coSupervisor: scholar.coSupervisor || '',
-        phdCoordinator: scholar.phdCoordinator || '',
-        nationality: scholar.nationality || '',
-        vivaDate: scholar.vivaDate || '',
+        id: scholar.id || "",
+        userId: scholar.userId || "",
+        scholarName: scholar.scholarName || "",
+        fatherName: scholar.fatherName || "",
+        email: scholar.email || "",
+        batch: scholar.batch || "",
+        rollNo: scholar.rollNo || "",
+        passingYear: scholar.passingYear || "",
+        headingDate: scholar.headingDate || "",
+        dateOfJoining: scholar.dateOfJoining || "",
+        yearOfAdmission: scholar.yearOfAdmission || "",
+        enrollmentNo: scholar.enrollmentNo || "",
+        profilePhotoUrl: scholar.profilePhotoUrl || "",
+        coSupervisor: scholar.coSupervisor || "",
+        phdCoordinator: scholar.phdCoordinator || "",
+        nationality: scholar.nationality || "",
+        vivaDate: scholar.vivaDate || "",
         fellowship: scholar.fellowship || false,
-        fullTimeOrPartTime: scholar.fullTimeOrPartTime || 'FULL_TIME',
-        supervisor: scholar.supervisor || '',
-        hodNominee: scholar.hodNominee || '',
-        supervisorNominee: scholar.supervisorNominee || '',
-        researchTitle: scholar.researchTitle || '',
-        status: scholar.status || 'IN_PROGRESS',
-        titleStatus: scholar.titleStatus || 'APPROVED',
+        fullTimeOrPartTime: scholar.fullTimeOrPartTime || "FULL_TIME",
+        supervisor: scholar.supervisor || "",
+        hodNominee: scholar.hodNominee || "",
+        supervisorNominee: scholar.supervisorNominee || "",
+        researchTitle: scholar.researchTitle || "",
+        status: scholar.status || "IN_PROGRESS",
+        titleStatus: scholar.titleStatus || "APPROVED",
       });
     }
   }, [scholar]);
@@ -65,7 +65,7 @@ function EditScholarModal({ scholar, onClose, onSave }) {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -114,7 +114,8 @@ function EditScholarModal({ scholar, onClose, onSave }) {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                readOnly
+                className="w-full p-3 border rounded-lg cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -167,7 +168,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="dateOfJoining">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="dateOfJoining"
+              >
                 Date of Joining
               </label>
               <input
@@ -179,7 +183,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="yearOfAdmission">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="yearOfAdmission"
+              >
                 Year of Admission
               </label>
               <input
@@ -191,7 +198,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="enrollmentNo">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="enrollmentNo"
+              >
                 Enrollment No
               </label>
               <input
@@ -203,7 +213,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="profilePhotoUrl">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="profilePhotoUrl"
+              >
                 Profile Photo URL
               </label>
               <input
@@ -215,7 +228,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="coSupervisor">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="coSupervisor"
+              >
                 Co-Supervisor
               </label>
               <input
@@ -227,7 +243,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="phdCoordinator">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="phdCoordinator"
+              >
                 PhD Coordinator
               </label>
               <input
@@ -275,7 +294,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="fullTimeOrPartTime">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="fullTimeOrPartTime"
+              >
                 Full-Time/Part-Time
               </label>
               <select
@@ -313,7 +335,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="supervisorNominee">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="supervisorNominee"
+              >
                 Supervisor Nominee
               </label>
               <input
@@ -325,7 +350,10 @@ function EditScholarModal({ scholar, onClose, onSave }) {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="researchTitle">
+              <label
+                className="block text-gray-700 mb-2"
+                htmlFor="researchTitle"
+              >
                 Research Title
               </label>
               <input

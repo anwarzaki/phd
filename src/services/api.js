@@ -65,24 +65,59 @@ export const downloadReport = (scholarId) =>
   export const updatedRACMember = (id, updatedRACMember) =>
     API.put(`/api/coordinator/update/${id}`, updatedRACMember);
 
+  export const uploadNotice = (formData) => {
+  return API.post('/api/admin/upload/notice', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      },
+    });
+  };
+
   // RAC Member APIs 
   export const getReportsForApproval = () => API.get('/api/rac-member/all/reports');
   export const approveReport = (reportId) => API.put(`/api/rac-member/approve-report/${reportId}`);
   export const getReportSignatures = (reportId) => API.get(`/api/signatures/report/${reportId}`); // New API for signatures
-  // Add to your api.js
-export const uploadSignature = (reportId, formData) => {
+  export const uploadSignature = (reportId, formData) => {
   return API.post(`/api/signatures/upload/${reportId}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
-  });
-};
-export const viewSignature = () => API.get('/api/rac-member/signature');
+      }
+    });
+  };
+  export const viewSignature = () => API.get('/api/rac-member/signature');
+  // Add this to your existing api.js exports
+  export const rejectReport = (reportId, rejectionData) => {
+    return API.put(`/api/rac-member/reject-report/${reportId}`, rejectionData);
+  };
 
   // Scholar
   export const getScholarDetails = (scholarId) => API.get(`/api/scholar/${scholarId}`);
   export const getApprovedReport = () => API.get('/api/phd-scholar/approved');
+  export const viewSignedReport = (reportId) =>
+  API.get(`/api/phd-scholar/report/${reportId}`, {
+    responseType: 'blob', 
+    headers: {
+      'Accept': 'application/pdf',
+    }
+  });
+  // Add to your existing API exports
+  export const getAllNotices = (page = 0, size = 10) => 
+    API.get(`/api/notice/all?page=${page}&size=${size}`);
+
+  // export const downloadNotice = (noticeId) => 
+  //   API.get(`/api/notice/download/${noticeId}`, {
+  //     responseType: 'blob',
+  //   });
+    // Add to your existing API exports
+  export const downloadNotice = (noticeId) => 
+    API.get(`/api/notice/${noticeId}`, {
+      responseType: 'blob',
+      headers: {
+        'Accept': 'application/pdf',
+      }
+    });
+
 
 
 export default API;
